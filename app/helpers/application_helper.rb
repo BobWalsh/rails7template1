@@ -2,8 +2,18 @@ module ApplicationHelper
   include Pagy::Frontend
   include Heroicon::Engine.helpers
 
+  def render_svg(name, options = {})
+    options[:title] ||= name.underscore.humanize
+    options[:aria] = true
+    options[:nocomment] = true
+    options[:class] = options.fetch(:styles, "fill-current text-gray-500")
+
+    filename = "#{name}.svg"
+    inline_svg_tag(filename, options)
+  end
+
   def page_title
-    "Rails + Ralix + Tailwind | #{controller_name.humanize}"
+    "Weather App | #{controller_name.humanize}"
   end
 
   def body_class
