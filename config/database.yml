@@ -1,16 +1,16 @@
 default: &default
-  adapter: postgresql
-  encoding: unicode
-  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+    adapter: postgresql
+    encoding: unicode
+    pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
 
 development:
-  <<: *default
-  database: <%= ENV.fetch("DATABASE_NAME", "rails-ralix-tailwind_development")  %>
+    <<: *default
+    database: <%= ENV.fetch("DATABASE_NAME", "railstest2022_development")  %>
 
 test:
-  <<: *default
-  database: <%= ENV.fetch("DATABASE_NAME", "rails-ralix-tailwind_test")  %>
+    <<: *default
+    database: <%= ENV.fetch("DATABASE_NAME", "railstest2022_test")  %>
 
 production:
-  <<: *default
-  database: <%= ENV.fetch("DATABASE_NAME", "rails-ralix-tailwind_production")  %>
+    <<: *default
+    database: <%= ENV.fetch("DATABASE_NAME", "railstest2022_production")  %>
