@@ -1,11 +1,13 @@
-<div class="my-24 text-center sm:mx-4">
+<div class="text-center my-14 sm:mx-4">
   <%#marketing message here%>
   <% if !current_user %>
-    <h1 class="tracking-tight text-gray-900 sm:text-5xl md:text-6xl">
-      <span>Get your weather here!</span><br>
-      <span class="text-indigo-600 sm:x-auto">(Marketing/Onboarding message...)</span>
-    </h1>
-    <a href="/users/sign_up" class="mt-8 text-2xl btn">Sign up</a>
+    <div class="mb-8">
+      <h1 class="mb-4 tracking-tight text-gray-900 sm:text-4xl md:text-5xl">
+        <span>Get your weather here!</span><br>
+        <span class="text-indigo-600 sm:x-auto">(Marketing/Onboarding message...)</span>
+      </h1>
+    </div>
+    <a href="/users/sign_up" class="text-2xl btn">Sign up</a>
   <% else %>
     <div>
       <h2>The Weather is.. </h2>
@@ -13,26 +15,29 @@
       <%# Weather info returned here%>
       <%# Weather info returned here%>
       <%# Weather info returned here%>
-      <h3 class="mt-4 ">
-        <h3><%= @data["current"]["temperature"] %> &#186;F</h3>
-        <img  src=<%= @data["current"]["weather_icons"][0] %>  </img>
-        <div>and <span class="italic font-bold"><%= @data["current"]["weather_descriptions"][0] %></span></div>
-      </h3>
-      <div class="flex items-center justify-center ">
-        <div class= "w-48 bg-yellow-400 x-auto">(Feels Like: <%= @data['current']["feelslike"] %> &#186;F)</div>
-      </div>
-      <h3 class="mt-4">
-        <h3 class="bg-slate-400">Yesterday's Temps, (<%= Date.yesterday.strftime("%A, %B %e") %>):</h3>
-        <div class="bg-slate-200">A Low <%= @data3['historical'][@yest]['mintemp'] %> &#186;F</div>
-        <div class="bg-slate-200">And the High was <%= @data3['historical'][@yest]['maxtemp'] %> &#186;F</div>
-      </h3>
-      <pre><%# JSON.pretty_generate(@data) %></pre>
+      <% if current_user.zipcode%>
+        <h3 class="mt-4 ">
+          <h3><%= @data["current"]["temperature"] %> &#186;F</h3>
+          <img  src=<%= @data["current"]["weather_icons"][0] %>  </img>
+          <div>and <span class="italic font-bold"><%= @data["current"]["weather_descriptions"][0] %></span></div>
+        </h3>
+        <div class="flex items-center justify-center ">
+          <div class= "w-48 bg-yellow-400 x-auto">(Feels Like: <%= @data['current']["feelslike"] %> &#186;F)</div>
+        </div>
+        <h3 class="mt-4">
+          <h3 class="bg-slate-400">Yesterday's Temps, (<%= Date.yesterday.strftime("%A, %B %e") %>):</h3>
+          <div class="bg-slate-200">A Low <%= @data3['historical'][@yest]['mintemp'] %> &#186;F</div>
+          <div class="bg-slate-200">And the High was <%= @data3['historical'][@yest]['maxtemp'] %> &#186;F</div>
+        </h3>
+      <% else%>
+        <h4 class="bg-red-200">You need to set your address first</h4>
+      <% end%>
     </div>
     <div x-data="{ open: false }" class="flex justify-center mt-12">
       <!-- Trigger -->
       <span x-on:click="open = true">
         <button type="button" class="btn px-5 py-2.5 rounded-md shadow">
-          Open the slideover and configure your WeatherApp
+          Set your address
         </button>
       </span>
       <!-- Slideout -->
@@ -69,14 +74,10 @@
               <!-- Slideout Body -->
               <div class="p-8">
                 <!-- Title -->
-                <h2 x-dialog:title class="text-3xl font-bold">Where do you want weather from?</h2>
-                <!-- ADDRESS Form -->
-                <h1>My account</h1>
+                <h2 x-dialog:title class="text-3xl font-bold">What's your Address?</h2>
+                <h4 class="italic">Or the address you want the weather from...</h4>
                 <%= form_with(model: current_user) do |form| %>
                   <%= render "application/error_messages", object: current_user %>
-                  <div class="mb-4">
-                    <%= avatar(current_user, 200) %>
-                  </div>
                   <div>
                     <%= form.label :address1 %>
                     <%= form.text_field :address1 %>
@@ -93,19 +94,16 @@
                     <%= form.label :zipcode %>
                     <%= form.text_field :zipcode %>
                   </div>
+                </div>
+                <!-- Slideout Footer -->
+                <div class="flex justify-end p-4 space-x-2 bg-gray-50">
+                  <button type="button" x-on:click="$dialog.close()" class="text-gray-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 rounded-lg px-5 py-2.5">
+                    Close
+                  </button>
                   <div class="form-actions">
-                    <%= form.submit nil, class: 'btn' %>
+                    <%= form.submit "Update", "x-on:click": "$dialog.close()" ,class: 'btn "bg-slate-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 px-5 py-2.5 rounded-lg text-white' %>
                   </div>
                 <% end %>
-              </div>
-              <!-- Slideout Footer -->
-              <div class="flex justify-end p-4 space-x-2 bg-gray-50">
-                <button type="button" x-on:click="$dialog.close()" class="text-gray-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 rounded-lg px-5 py-2.5">
-                  Close
-                </button>
-                <button type="button" x-on:click="$dialog.close()" class="bg-slate-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 px-5 py-2.5 rounded-lg text-white">
-                  Take Action
-                </button>
               </div>
             </div>
           </div>

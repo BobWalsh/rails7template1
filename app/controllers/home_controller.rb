@@ -9,10 +9,10 @@ class HomeController < ApplicationController
     # puts JSON.pretty_generate(res.body)
 
 
-    url2 = "https://api.weatherstack.com/historical?access_key=438b623c8e56f25eaee02d77471cfc76&units=94903&"
-    uri2 = URI(url2)
-    res2 = Net::HTTP.get_response(uri2)
-    @data2 = JSON.parse(res2.body)
+    # url2 = "https://api.weatherstack.com/historical?access_key=438b623c8e56f25eaee02d77471cfc76&units=94903&"
+    # uri2 = URI(url2)
+    # res2 = Net::HTTP.get_response(uri2)
+    # @data2 = JSON.parse(res2.body)
 
     @hist = "historical_date="+ Date.yesterday.strftime
     @yest = Date.yesterday.strftime

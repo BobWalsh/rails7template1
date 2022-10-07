@@ -1,24 +1,19 @@
 // Dependencies
-import { RalixApp } from 'ralix'
-import "@hotwired/turbo-rails"
+import { RalixApp } from "ralix";
+import "@hotwired/turbo-rails";
 
 // Controllers
-import AppCtrl      from './controllers/app'
-import ArticlesCtrl from './controllers/articles'
+import AppCtrl from "./controllers/app";
 
 // Components
-import RemoteModal  from './components/remote_modal'
-import Tooltip      from './components/tooltip'
+import RemoteModal from "./components/remote_modal";
+import Tooltip from "./components/tooltip";
 
 const App = new RalixApp({
-  routes: {
-    '/articles$': ArticlesCtrl,
-    '/.*': AppCtrl
-  },
-  components: [
-    RemoteModal,
-    Tooltip
-  ]
-})
+    routes: {
+        "/.*": AppCtrl,
+    },
+    components: [RemoteModal, Tooltip],
+});
 
-App.start()
+App.start();

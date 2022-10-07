@@ -22,4 +22,12 @@ module UsersHelper
 
     "https://www.gravatar.com/avatar/#{gravatar_id}?#{gravatar_options.to_param}"
   end
+
+  def first_name
+    if name.split.count > 1
+      name.split.first
+    else
+      name
+    end
+  end
 end
