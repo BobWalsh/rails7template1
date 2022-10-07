@@ -10,27 +10,28 @@
     <a href="/users/sign_up" class="text-2xl btn">Sign up</a>
   <% else %>
     <div>
-      <h2>The Weather is.. </h2>
-      <%# Weather info returned here%>
-      <%# Weather info returned here%>
-      <%# Weather info returned here%>
-      <%# Weather info returned here%>
-      <% if current_user.zipcode%>
-        <h3 class="mt-4 ">
-          <h3><%= @data["current"]["temperature"] %> &#186;F</h3>
-          <img  src=<%= @data["current"]["weather_icons"][0] %>  </img>
-          <div>and <span class="italic font-bold"><%= @data["current"]["weather_descriptions"][0] %></span></div>
-        </h3>
-        <div class="flex items-center justify-center ">
-          <div class= "w-48 bg-yellow-400 x-auto">(Feels Like: <%= @data['current']["feelslike"] %> &#186;F)</div>
-        </div>
-        <h3 class="mt-4">
-          <h3 class="bg-slate-400">Yesterday's Temps, (<%= Date.yesterday.strftime("%A, %B %e") %>):</h3>
-          <div class="bg-slate-200">A Low <%= @data3['historical'][@yest]['mintemp'] %> &#186;F</div>
-          <div class="bg-slate-200">And the High was <%= @data3['historical'][@yest]['maxtemp'] %> &#186;F</div>
-        </h3>
-      <% else%>
-        <h4 class="bg-red-200">You need to set your address first</h4>
+      <% if @data['success'] = "false"%>
+        <h3>Oh No! - the API Sever is returning an error. Try later again.</h3>
+      <% else %>
+        <%# Weather info returned here%>
+        <% if current_user.zipcode.length >4 %>
+          <h2>The Weather <%= @no_zipcode %>... </h2>
+          <h3 class="mt-4 ">
+            <h3><%= @data["current"]["temperature"] %> &#186;F</h3>
+            <img  src=<%= @data["current"]["weather_icons"][0] %>  </img>
+            <div>and <span class="italic font-bold"><%= @data["current"]["weather_descriptions"][0] %></span></div>
+          </h3>
+          <div class="flex items-center justify-center ">
+            <div class= "w-48 bg-yellow-400 x-auto">(Feels Like: <%= @data['current']["feelslike"] %> &#186;F)</div>
+          </div>
+          <h3 class="mt-4">
+            <h3 class="bg-slate-400">Yesterday's Temps, (<%= Date.yesterday.strftime("%A, %B %e") %>):</h3>
+            <div class="bg-slate-200">A Low of <%= @data3['historical'][@yest]['mintemp']%> &#186;F</div>
+            <div class="bg-slate-200">And the High was <%= @data3['historical'][@yest]['maxtemp']%> &#186;F</div>
+          </h3>
+        <% else%>
+          <h4 class="bg-red-200">Set your address and <span class="font-bold"> zipcode...</span></h4>
+        <% end%>
       <% end%>
     </div>
     <div x-data="{ open: false }" class="flex justify-center mt-12">

@@ -1,8 +1,6 @@
-# 🚀 Rails + Ralix + Tailwind
+# 🚀 Rails Demo Project
 
-> Starter Kit to build modern Rails applications fast
-
-Powered by:
+### Powered by:
 
 -   [Rails](https://rubyonrails.org)
 -   [Ralix](https://github.com/ralixjs/ralix)
@@ -11,17 +9,20 @@ Powered by:
 -   [Turbo](https://turbo.hotwired.dev)
 -   [esbuild](https://esbuild.github.io)
 
-Rails v7 application template ready to start building your next project, with a pre-configured modern front-end stack and some extras:
+###This is a Rails v7 application with:
 
 -   🎨 Minimalistic and responsive, clean layout
 -   📦 Icons pack, via [Heroicons](https://heroicons.com)
 -   🔐 Authentication, via [Devise](https://github.com/heartcombo/devise)
--   👥 Authorization, via [CanCanCan](https://github.com/CanCanCommunity/cancancan)
--   🔍 Searching, via [Ransack](https://github.com/activerecord-hackery/ransack)
--   🔢 Pagination, via [Pagy](https://github.com/ddnexus/pagy)
 -   📄 Static pages controller (About, Terms, ...)
 -   🔴 Custom errors pages: 404, 422, 500
--   📚 _Ready-to-use_ components: Tables, Buttons, Forms, Cards, Modals, Tooltips
+
+## To Do
+
+-   Model Validations 🙈
+-   Better handing when https://weatherstack.com/ fails
+-   Removing the need to do a refresh after entering your address [zip code]
+-   Tests 🙈
 
 ## Install
 

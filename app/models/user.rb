@@ -29,7 +29,7 @@ class User < ApplicationRecord
          :validatable
 
   has_one_attached :avatar
-  has_many :articles, dependent: :destroy
+
 
   def name
     @name ||= self[:name].presence || email.split("@").first
