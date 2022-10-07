@@ -1,60 +1,52 @@
 <div class="my-24 text-center sm:mx-4">
   <%#marketing message here%>
-  <h1 class="tracking-tight text-gray-900 sm:text-5xl md:text-6xl">
-    <span>Get your weather here!</span><br>
-    <span class="text-indigo-600 sm:x-auto">(Marketing/Onboarding message...)</span>
-  </h1>
   <% if !current_user %>
-    <a href="/users/sign_up" class="text-2xl btn">Sign up</a>
+    <h1 class="tracking-tight text-gray-900 sm:text-5xl md:text-6xl">
+      <span>Get your weather here!</span><br>
+      <span class="text-indigo-600 sm:x-auto">(Marketing/Onboarding message...)</span>
+    </h1>
+    <a href="/users/sign_up" class="mt-8 text-2xl btn">Sign up</a>
   <% else %>
-    <h2>content</h2>
-    <%# Weather info returned here%>
-    <%# Weather info returned here%>
-    <%# Weather info returned here%>
-    <%# Weather info returned here%>
-    <h4 class="mt-12 btn">
-      <%= Date.today.strftime("%A, %B %e") %>
-      <hr/>
-      <h3>Current<%= @data["current"]["temperature"] %>&#186;F</h3>
-      <img  src=<%= @data["current"]["weather_icons"][0] %>  </img>
-    </h4>
-    <hr/>
-    <div class="bg-yellow-400">As of: <%= Date.today.strftime("%A, %B %e") %></div>
-    <div><%= @data["current"]["weather_descriptions"][0] %></div>
-    <div class="bg-yellow-400">Temp: <%= @data['current']["temperature"] %></div>
-    <div class="bg-yellow-400">Feels Like: <%= @data['current']["feelslike"] %></div>
-    <h2 class="bg-red-600"> <%= Date.yesterday.strftime("%A, %B %e") %></h2>
-    <div class="bg-green-400">YEsterday's LOW <%= @data3['historical'][@yest]['mintemp'] %></div>
-    <div class="bg-green-400">Yesterdays HIHG <%= @data3['historical'][@yest]['maxtemp'] %></div>
-    <div><%= @data2["current"] %></div>
-    <hr/>
-    <pre><%# JSON.pretty_generate(@data) %></pre>
-    <hr/>
-    <hr/>
-  </div>
-  <h1>
-    <%= @data3['historical'][@yest]['hourly'] %></div>
-</h1>
-<hr/>
-<div x-data="{ open: false }" class="flex justify-center mt-12">
-  <!-- Trigger -->
-  <span x-on:click="open = true">
-    <button type="button" class="btn px-5 py-2.5 rounded-md shadow">
-      Open the slideover and configure your WeatherApp
-    </button>
-  </span>
-  <!-- Slideout -->
-  <div
+    <div>
+      <h2>The Weather is.. </h2>
+      <%# Weather info returned here%>
+      <%# Weather info returned here%>
+      <%# Weather info returned here%>
+      <%# Weather info returned here%>
+      <h3 class="mt-4 ">
+        <h3><%= @data["current"]["temperature"] %> &#186;F</h3>
+        <img  src=<%= @data["current"]["weather_icons"][0] %>  </img>
+        <div>and <span class="italic font-bold"><%= @data["current"]["weather_descriptions"][0] %></span></div>
+      </h3>
+      <div class="flex items-center justify-center ">
+        <div class= "w-48 bg-yellow-400 x-auto">(Feels Like: <%= @data['current']["feelslike"] %> &#186;F)</div>
+      </div>
+      <h3 class="mt-4">
+        <h3 class="bg-slate-400">Yesterday's Temps, (<%= Date.yesterday.strftime("%A, %B %e") %>):</h3>
+        <div class="bg-slate-200">A Low <%= @data3['historical'][@yest]['mintemp'] %> &#186;F</div>
+        <div class="bg-slate-200">And the High was <%= @data3['historical'][@yest]['maxtemp'] %> &#186;F</div>
+      </h3>
+      <pre><%# JSON.pretty_generate(@data) %></pre>
+    </div>
+    <div x-data="{ open: false }" class="flex justify-center mt-12">
+      <!-- Trigger -->
+      <span x-on:click="open = true">
+        <button type="button" class="btn px-5 py-2.5 rounded-md shadow">
+          Open the slideover and configure your WeatherApp
+        </button>
+      </span>
+      <!-- Slideout -->
+      <div
         x-dialog
         x-model="open"
         style="display: none"
         class="fixed inset-0 z-10 overflow-hidden"
     >
-    <!-- Overlay -->
-    <div x-dialog:overlay x-transition.opacity class="fixed inset-0 bg-black bg-opacity-50"></div>
-    <!-- Panel -->
-    <div class="fixed inset-y-0 right-0 w-full max-w-lg">
-      <div
+        <!-- Overlay -->
+        <div x-dialog:overlay x-transition.opacity class="fixed inset-0 bg-black bg-opacity-50"></div>
+        <!-- Panel -->
+        <div class="fixed inset-y-0 right-0 w-full max-w-lg">
+          <div
                 x-dialog:panel
                 x-transition:enter="transition ease-out duration-300"
                 x-transition:enter-start="translate-x-full"
@@ -64,61 +56,61 @@
                 x-transition:leave-end="translate-x-full"
                 class="w-full h-full"
             >
-        <div class="flex flex-col justify-between h-full overflow-y-auto bg-white shadow-lg">
-          <!-- Slideout Close Button -->
-          <div class="absolute top-0 right-0 pt-4 pr-4">
-            <button type="button" @click="$dialog.close()" class="p-2 text-gray-600 rounded-lg bg-gray-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2">
-              <span class="sr-only">Close slideover</span>
-              <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 20 20" fill="currentColor">
-                <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
-              </svg>
-            </button>
-          </div>
-          <!-- Slideout Body -->
-          <div class="p-8">
-            <!-- Title -->
-            <h2 x-dialog:title class="text-3xl font-bold">Where do you want weather from?</h2>
-            <!-- ADDRESS Form -->
-            <h1>My account</h1>
-            <%= form_with(model: current_user) do |form| %>
-              <%= render "application/error_messages", object: current_user %>
-              <div class="mb-4">
-                <%= avatar(current_user, 200) %>
+            <div class="flex flex-col justify-between h-full overflow-y-auto bg-white shadow-lg">
+              <!-- Slideout Close Button -->
+              <div class="absolute top-0 right-0 pt-4 pr-4">
+                <button type="button" @click="$dialog.close()" class="p-2 text-gray-600 rounded-lg bg-gray-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2">
+                  <span class="sr-only">Close slideover</span>
+                  <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
+                  </svg>
+                </button>
               </div>
-              <div>
-                <%= form.label :address1 %>
-                <%= form.text_field :address1 %>
+              <!-- Slideout Body -->
+              <div class="p-8">
+                <!-- Title -->
+                <h2 x-dialog:title class="text-3xl font-bold">Where do you want weather from?</h2>
+                <!-- ADDRESS Form -->
+                <h1>My account</h1>
+                <%= form_with(model: current_user) do |form| %>
+                  <%= render "application/error_messages", object: current_user %>
+                  <div class="mb-4">
+                    <%= avatar(current_user, 200) %>
+                  </div>
+                  <div>
+                    <%= form.label :address1 %>
+                    <%= form.text_field :address1 %>
+                  </div>
+                  <div>
+                    <%= form.label :city %>
+                    <%= form.text_field :city %>
+                  </div>
+                  <div>
+                    <%= form.label :state_code %>
+                    <%= form.text_field :state_code %>
+                  </div>
+                  <div>
+                    <%= form.label :zipcode %>
+                    <%= form.text_field :zipcode %>
+                  </div>
+                  <div class="form-actions">
+                    <%= form.submit nil, class: 'btn' %>
+                  </div>
+                <% end %>
               </div>
-              <div>
-                <%= form.label :city %>
-                <%= form.text_field :city %>
+              <!-- Slideout Footer -->
+              <div class="flex justify-end p-4 space-x-2 bg-gray-50">
+                <button type="button" x-on:click="$dialog.close()" class="text-gray-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 rounded-lg px-5 py-2.5">
+                  Close
+                </button>
+                <button type="button" x-on:click="$dialog.close()" class="bg-slate-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 px-5 py-2.5 rounded-lg text-white">
+                  Take Action
+                </button>
               </div>
-              <div>
-                <%= form.label :state_code %>
-                <%= form.text_field :state_code %>
-              </div>
-              <div>
-                <%= form.label :zipcode %>
-                <%= form.text_field :zipcode %>
-              </div>
-              <div class="form-actions">
-                <%= form.submit nil, class: 'btn' %>
-              </div>
-            <% end %>
-          </div>
-          <!-- Slideout Footer -->
-          <div class="flex justify-end p-4 space-x-2 bg-gray-50">
-            <button type="button" x-on:click="$dialog.close()" class="text-gray-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 rounded-lg px-5 py-2.5">
-              Close
-            </button>
-            <button type="button" x-on:click="$dialog.close()" class="bg-slate-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 px-5 py-2.5 rounded-lg text-white">
-              Take Action
-            </button>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-</div>
-<% end %>
+  <% end %>
 </div>
