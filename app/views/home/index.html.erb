@@ -1,22 +1,38 @@
-<div class="my-24 text-center">
+<div class="my-24 text-center sm:mx-4">
+  <%#marketing message here%>
   <h1 class="tracking-tight text-gray-900 sm:text-5xl md:text-6xl">
-    <span>Weather Details here</span><br>
-    <span class="text-indigo-600">More Weather Details...</span>
+    <span>Get your weather here!</span><br>
+    <span class="text-indigo-600 sm:x-auto">(Marketing/Onboarding message...)</span>
   </h1>
-  <p class="mt-5 mb-10 text-gray-500 sm:text-lg md:text-xl">Starter Kit to build Rails applications fast, with Ralix, Tailwind and more!</p>
-  <a href="/users/sign_up" class="text-2xl btn">Sign up</a>
-  <a href="https://github.com/ralixjs/railstest2022" class="btn">[old] Get started</a>
-  <a href="<%= articles_path %>" class="ml-4 btn btn-outline">[old] Explore app</a>
   <% if !current_user %>
+    <a href="/users/sign_up" class="text-2xl btn">Sign up</a>
   <% else %>
-    <div x-data="{ open: false }" class="flex justify-center">
+    <%# Weather info returned here%>
+    <%# Weather info returned here%>
+    <%# Weather info returned here%>
+    <%# Weather info returned here%>
+    <h4 class="mt-12 btn">
+      <%# @data %>
+      <%= @data.to_a %>
+      <hr/>
+      <pre><%= JSON.pretty_generate(@data.first) %></pre>
+      <hr/>
+      <hr/>
+      <pre><%= @data[1]%></pre>
+      <hr/>
+      <hr/>
+      <pre><%= JSON.pretty_generate(@data.first) %></pre>
+      <hr/>
+      <%# @data["weather"].first["main"] %>
+    </h4>
+    <div x-data="{ open: false }" class="flex justify-center mt-12">
       <!-- Trigger -->
       <span x-on:click="open = true">
         <button type="button" class="btn px-5 py-2.5 rounded-md shadow">
-          Set your Address
+          Open the slideover and configure your WeatherApp
         </button>
       </span>
-      <!-- Slideover -->
+      <!-- Slideout -->
       <div
         x-dialog
         x-model="open"
@@ -38,7 +54,7 @@
                 class="w-full h-full"
             >
             <div class="flex flex-col justify-between h-full overflow-y-auto bg-white shadow-lg">
-              <!-- Close Button -->
+              <!-- Slideout Close Button -->
               <div class="absolute top-0 right-0 pt-4 pr-4">
                 <button type="button" @click="$dialog.close()" class="p-2 text-gray-600 rounded-lg bg-gray-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2">
                   <span class="sr-only">Close slideover</span>
@@ -47,14 +63,39 @@
                   </svg>
                 </button>
               </div>
-              <!-- Body -->
+              <!-- Slideout Body -->
               <div class="p-8">
                 <!-- Title -->
-                <h2 x-dialog:title class="text-3xl font-bold">Slideover Title</h2>
-                <!-- Content -->
-                <p class="flex-1 mt-4 text-gray-600">Your slideout text and content goes here.</p>
+                <h2 x-dialog:title class="text-3xl font-bold">Where do you want weather from?</h2>
+                <!-- ADDRESS Form -->
+                <h1>My account</h1>
+                <%= form_with(model: current_user) do |form| %>
+                  <%= render "application/error_messages", object: current_user %>
+                  <div class="mb-4">
+                    <%= avatar(current_user, 200) %>
+                  </div>
+                  <div>
+                    <%= form.label :address1 %>
+                    <%= form.text_field :address1 %>
+                  </div>
+                  <div>
+                    <%= form.label :city %>
+                    <%= form.text_field :city %>
+                  </div>
+                  <div>
+                    <%= form.label :state_code %>
+                    <%= form.text_field :state_code %>
+                  </div>
+                  <div>
+                    <%= form.label :zipcode %>
+                    <%= form.text_field :zipcode %>
+                  </div>
+                  <div class="form-actions">
+                    <%= form.submit nil, class: 'btn' %>
+                  </div>
+                <% end %>
               </div>
-              <!-- Footer -->
+              <!-- Slideout Footer -->
               <div class="flex justify-end p-4 space-x-2 bg-gray-50">
                 <button type="button" x-on:click="$dialog.close()" class="text-gray-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 rounded-lg px-5 py-2.5">
                   Close
