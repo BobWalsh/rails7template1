@@ -10,8 +10,9 @@ class HomeController < ApplicationController
       uri = URI(q)
       res = Net::HTTP.get_response(uri)
       @data = JSON.parse(res.body)
-      @yest = Date.yesterday.strftime
+      @yest = (Date.today - 1.day).strftime
       @hist = "historical_date="+ @yest
+      # @xxx = "https://api.weatherstack.com/historical?access_key=438b623c8e56f25eaee02d77471cfc76&units=f&query=94903&historical_date=2022-10-06"
 
       @qh = "https://api.weatherstack.com/historical?access_key=438b623c8e56f25eaee02d77471cfc76&units=f&query="+ zipcode.to_s + "&" + @hist
       @temp1 = @qh
