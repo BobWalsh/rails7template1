@@ -20,9 +20,10 @@
 ## To Do
 
 -   Model Validations 🙈
--   Better handing when https://weatherstack.com/ fails
+-   Better handling when https://weatherstack.com/ fails
 -   Removing the need to do a refresh after entering your address [zip code]
 -   Tests 🙈
+-   Un-hardcode my https://weatherstack.com/ API key (should be an ENV[])
 
 ## Install
 
